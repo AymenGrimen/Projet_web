@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from flixtv.volkovdesign.com/admin/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 15 Aug 2023 10:00:19 GMT -->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ asset('back/css/bootstrap-reboot.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('back/css/bootstrap-grid.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('back/css/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ asset('back/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('back/css/admin.css') }}">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" href="{{ asset('back/icon/favicon-32x32.png') }}" sizes="32x32">
+    <link rel="apple-touch-icon" href="{{ asset('back/icon/favicon-32x32.png') }}">
+
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="Dmitry Volkov">
+    <title>{% block title %}  {% endblock %}</title>
+
+</head>
+<body>
+<!-- header -->
+<header class="header">
+    <div class="header__content">
+        <!-- header logo -->
+        <a href="index.html" class="header__logo">
+            <img src="{{ asset('back/img/logo.svg') }}" alt="">
+        </a>
+        <!-- end header logo -->
+
+        <!-- header menu btn -->
+        <button class="header__btn" type="button">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <!-- end header menu btn -->
+    </div>
+</header>
+<!-- end header -->
+
+<!-- sidebar -->
+<div class="sidebar">
+    <!-- sidebar logo -->
+    <a href="index.html" class="sidebar__logo">
+        <img src="{{ asset('back/img/logo.svg') }}" alt="">
+    </a>
+    <!-- end sidebar logo -->
+
+    <!-- sidebar user -->
+    <div class="sidebar__user">
+        <div class="sidebar__user-img">
+            <img src="{{ asset('back/img/user.svg') }}" alt="">
+        </div>
+
+        <div class="sidebar__user-title">
+            <span>Admin</span>
+            <p>{{ app.user.name }}</p>
+        </div>
+
+        <a class="sidebar__user-btn" type="button"  href="{{ path('app_logout') }}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4,12a1,1,0,0,0,1,1h7.59l-2.3,2.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l4-4a1,1,0,0,0,.21-.33,1,1,0,0,0,0-.76,1,1,0,0,0-.21-.33l-4-4a1,1,0,1,0-1.42,1.42L12.59,11H5A1,1,0,0,0,4,12ZM17,2H7A3,3,0,0,0,4,5V8A1,1,0,0,0,6,8V5A1,1,0,0,1,7,4H17a1,1,0,0,1,1,1V19a1,1,0,0,1-1,1H7a1,1,0,0,1-1-1V16a1,1,0,0,0-2,0v3a3,3,0,0,0,3,3H17a3,3,0,0,0,3-3V5A3,3,0,0,0,17,2Z"/></svg>
+        </a>
+    </div>
+    <!-- end sidebar user -->
+
+    <!-- sidebar nav -->
+    <ul class="sidebar__nav">
+
+        <li class="sidebar__nav-item">
+            <a href="{{ path('app_admin_allusers') }}" class="sidebar__nav-link sidebar__nav-link--active"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.3,12.22A4.92,4.92,0,0,0,14,8.5a5,5,0,0,0-10,0,4.92,4.92,0,0,0,1.7,3.72A8,8,0,0,0,1,19.5a1,1,0,0,0,2,0,6,6,0,0,1,12,0,1,1,0,0,0,2,0A8,8,0,0,0,12.3,12.22ZM9,11.5a3,3,0,1,1,3-3A3,3,0,0,1,9,11.5Zm9.74.32A5,5,0,0,0,15,3.5a1,1,0,0,0,0,2,3,3,0,0,1,3,3,3,3,0,0,1-1.5,2.59,1,1,0,0,0-.5.84,1,1,0,0,0,.45.86l.39.26.13.07a7,7,0,0,1,4,6.38,1,1,0,0,0,2,0A9,9,0,0,0,18.74,11.82Z"/></svg> <span>Users</span></a>
+        </li>
+    </ul>
+    <!-- end sidebar nav -->
+
+    <!-- sidebar copyright -->
+    <div class="sidebar__copyright">© FlixTV.template, 2021. <br>Create by <a href="https://themeforest.net/user/dmitryvolkov/portfolio" target="_blank">Dmitry Volkov</a></div>
+    <!-- end sidebar copyright -->
+</div>
+<!-- end sidebar -->
+
+<!-- main content -->
+<main class="main">
+    <div class="container-fluid">
+        <div class="row">
+            {% block body %}
+            {% endblock %}
+        </div>
+    </div>
+</main>
+<!-- end main content -->
+
+<!-- JS -->
+<script src="{{ asset('back/js/jquery-3.5.1.min.js') }}"></script>
+<script src="{{ asset('back/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('back/js/jquery.magnific-popup.min.js') }}"></script>
+<script src="{{ asset('back/js/smooth-scrollbar.js') }}"></script>
+<script src="{{ asset('back/js/select2.min.js') }}"></script>
+<script src="{{ asset('back/js/admin.js') }}"></script>
+<!-- jQuery 1.7.2+ or Zepto.js 1.0+ -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<!-- Magnific Popup core JS file -->
+<script src="magnific-popup/jquery.magnific-popup.js"></script>
+
+</body>
+
+<!-- Mirrored from flixtv.volkovdesign.com/admin/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 15 Aug 2023 10:00:26 GMT -->
+</html>
