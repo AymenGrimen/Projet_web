@@ -33,33 +33,74 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['user', 'posts:read'])]
     private ?\DateTimeInterface $bday = null;
 
+
     #[ORM\Column(length: 180, unique: true)]
     #[Groups(['user', 'posts:read'])]
     private ?string $email = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: 'boolean')]
     #[Groups(['user', 'posts:read'])]
-    private ?int $etat = 1;
+    private $isVerified = false;
+
 
     #[ORM\Column]
     #[Groups(['user', 'posts:read'])]
     private array $roles = [];
 
+    #[ORM\Column(name: "reset_code", nullable: true)]
+    private ?string $resetCode = null;
+
     /**
-     * @return int|null
+     * @return string|null
      */
-    public function getEtat(): ?int
+    public function getResetCode(): ?string
     {
-        return $this->etat;
+        return $this->resetCode;
     }
 
     /**
-     * @param int|null $etat
+     * @param string|null $resetCode
      */
-    public function setEtat(?int $etat): void
+    public function setResetCode(?string $resetCode): void
     {
-        $this->etat = $etat;
+        $this->resetCode = $resetCode;
     }
+    /**
+     */
+    private ?string $confirmPassword = null;
+
+    /**
+     * @return string|null
+     */
+    public function getConfirmPassword(): ?string
+    {
+        return $this->confirmPassword;
+    }
+
+    /**
+     * @param string|null $confirmPassword
+     */
+    public function setConfirmPassword(?string $confirmPassword): void
+    {
+        $this->confirmPassword = $confirmPassword;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    /**
+     * @param bool $isVerified
+     */
+    public function setIsVerified(bool $isVerified): void
+    {
+        $this->isVerified = $isVerified;
+    }
+
 
     /**
      * @var string The hashed password

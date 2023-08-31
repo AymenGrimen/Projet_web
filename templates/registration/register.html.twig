@@ -36,14 +36,14 @@
                 <div class="sign__content">
                     <!-- authorization form -->
 
+                    {% for flash_error in app.flashes('verify_email_error') %}
+                        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+                    {% endfor %}
 
-        {{ form_start(registrationForm, {'attr': {class:'sign__form'}}) }}
+                    {{ form_start(registrationForm, {'attr': {class:'sign__form'}}) }}
                     <a href="{{ path('app_index') }}" class="sign__logo">
                         <img src="{{ asset('front/img/logo.svg') }}" alt="">
                     </a>
-                    <h1 class="footer__tagline">
-                        Verify your email after register.
-                    </h1>
 
                     <div class="sign__group">
 

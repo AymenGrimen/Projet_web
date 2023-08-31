@@ -67,12 +67,23 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-            'UPDATE App\Entity\User u SET u.name = :name, u.email = :email, u.etat = :etat WHERE u.id = :id'
+            'UPDATE App\Entity\User u SET u.name = :name, u.email = :email, u.isVerified = :is_verified, u.image = :image WHERE u.id = :id'
         );
         $query->setParameter('id', $user->getId());
         $query->setParameter('name',  $user->getName());
         $query->setParameter('email',  $user->getEmail());
-        $query->setParameter('etat',  $user->getEtat());
+        $query->setParameter('is_verified',  $user->isVerified());
+        $query->setParameter('image',  $user->getImage());
+        return $query->getResult();
+    }
+    public function updateUserPassword(?User $user, bool $true)
+    {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery(
+            'UPDATE App\Entity\User u SET u.password = :password WHERE u.id = :id'
+        );
+        $query->setParameter('id', $user->getId());
+        $query->setParameter('password',  $user->getPassword());
         return $query->getResult();
     }
 
@@ -101,6 +112,16 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function getUserByResetCode($resetCode)
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.resetCode = :resetCode')
+            ->setParameter('resetCode', $resetCode)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 
     public function findUser($Value, $order)
     {

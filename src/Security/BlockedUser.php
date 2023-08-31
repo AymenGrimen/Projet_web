@@ -13,7 +13,7 @@ class BlockedUser implements UserCheckerInterface
     public function checkPreAuth(UserInterface $user)
     {
         // TODO: Implement checkPreAuth() method.
-        $this->checkAuth($user);
+       // $this->checkAuth($user);
     }
 
     public function checkPostAuth(UserInterface $user)
@@ -28,7 +28,7 @@ class BlockedUser implements UserCheckerInterface
         {
             return;
         }
-        if(str_contains($user->getEtat(),1))
+        if(!$user->isVerified())
         {
             throw new CustomUserMessageAccountStatusException('You are blocked. Please check your Email or contact support.');
         }
