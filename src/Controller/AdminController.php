@@ -10,15 +10,18 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 use function PHPUnit\Framework\isEmpty;
-
 #[Route('/admin')]
 class AdminController extends AbstractController
 {
@@ -275,5 +278,62 @@ class AdminController extends AbstractController
             return new Response($jsonc);
         }
     }
+        //*****MOBILE
+
+        #[Route('/Mobile/allUsers', name: 'affmobusers')]
+
+        public function affmobusers(NormalizerInterface $normalizer,UserRepository $userRepository)
+        {
+            $med=$userRepository->findAll();
+    
+            $jsonContent = $normalizer->normalize($med,'json',['user'=>'post:read']);
+            return new Response(json_encode($jsonContent));
+        }
+    
+    
+    
+    
+        #[Route('/mobile/edit', name: 'editmobprofile')]
+        public function editmobprofile(Request $request,NormalizerInterface $normalizer,UserRepository $userRepository)
+        {
+    
+            $user = $userRepository->getUserById($request->get('id'));
+            $user->setName($request->get("name"));
+            $user->setEmail($request->get("email"));
+            $rest=substr($request->get('bday'), 0, 20);
+            $rest1=substr($request->get('bday'), 30, 34);
+            $res=$rest.$rest1;
+            try {
+                $date = new \DateTime($res);
+                $user->setBday($date);
+            } catch (\Exception $e) {
+    
+            }
+    
+            $userRepository->updateUser($user, true);
+    
+            $normalizer = new ObjectNormalizer();
+            $normalizer->setCircularReferenceLimit(1);
+            $normalizer->setCircularReferenceHandler(function ($user) {
+                return $user->getId();
+            });
+            $encoders = [new JsonEncoder()];
+            $normalizers = array($normalizer);
+            $serializer = new Serializer($normalizers,$encoders);
+            $formatted = $serializer->normalize($user);
+            return new JsonResponse($formatted);
+        }
+    
+        #[Route('/mobile/del', name: 'delmobuser')]
+        public function delmobuser(Request $request,NormalizerInterface $normalizer,UserRepository $userRepository,ManagerRegistry $doctrine)
+        {
+            $user = $userRepository->getUserById($request->get('id'));
+    
+            $entityyManager = $doctrine->getManager();
+            $entityyManager->remove($user);
+            $entityyManager->flush();
+            $jsonContent = $normalizer->normalize($user,'json',['user'=>'post:read']);
+            return new Response(json_encode($jsonContent));
+        }
 
 }

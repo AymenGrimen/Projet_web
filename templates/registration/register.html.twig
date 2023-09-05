@@ -40,7 +40,7 @@
                         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
                     {% endfor %}
 
-                    {{ form_start(registrationForm, {'attr': {class:'sign__form'}}) }}
+                    {{ form_start(registrationForm, {'attr': {class:'sign__form','novalidate':'novalidate'}}) }}
                     <a href="{{ path('app_index') }}" class="sign__logo">
                         <img src="{{ asset('front/img/logo.svg') }}" alt="">
                     </a>
@@ -58,8 +58,8 @@
                         <h1 class="footer__tagline">
                             {{ form_errors(registrationForm.email) }}
                         </h1>
-
                     </div>
+
                         <div class="sign__group">
 
                             {{ form_widget(registrationForm.plainPassword,  {'attr': {'class': 'sign__input', placeholder:'Password'}})  }}
@@ -67,6 +67,7 @@
                                 {{ form_errors(registrationForm.plainPassword) }}
                             </h1>
                         </div>
+                        
                         <div class="sign__group sign__group--checkbox">
                             {{ form_widget(registrationForm.agreeTerms,{ 'attr':{class : 'sign__group sign__group--checkbox',type: 'checkbox', checked :'checked'}}) }}
                         </div>

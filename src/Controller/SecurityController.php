@@ -23,22 +23,23 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('app_index');
         }
 
-
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-
-
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error, 'message' => '']);
     }
+
+
+
 
     #[Route(path: '/logout', name: 'app_logout')]
     public function logout(UrlGeneratorInterface $urlGenerator): RedirectResponse
     {
         $logoutUrl = $urlGenerator->generate('app_login');
 
-        return new RedirectResponse($logoutUrl);    }
+        return new RedirectResponse($logoutUrl);   
+    }
 
 }
